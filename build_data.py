@@ -38,3 +38,13 @@ def get_data() -> list[CountyDemographics]:
        report = county_demographics.get_report()
        _converted = [convert_county(county) for county in report]
     return _converted
+
+
+def hw4():
+    try:
+        filename = open(str(sys.argv[1]),"r")
+        counties = build_data.get_data()
+        for line in filename:
+            print(line)
+    except FileNotFoundError:
+        print("Error, Couldn't Open")
