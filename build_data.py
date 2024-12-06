@@ -9,10 +9,10 @@ from data import CountyDemographics
 #
 # Note that this function assumes the dictionary is properly structured.
 def convert_county(county) -> CountyDemographics:
-    if 'Median Houseold Income' in county['Income']:
+    if 'Median Household Income' in county['Income']:
         county['Income']['Median Household Income'] =\
-                county['Income']['Median Houseold Income']
-        del county['Income']['Median Houseold Income']
+                county['Income']['Median Household Income']
+        del county['Income']['Median Household Income']
     return CountyDemographics(
             county['Age'],
             county['County'],
@@ -38,3 +38,13 @@ def get_data() -> list[CountyDemographics]:
        report = county_demographics.get_report()
        _converted = [convert_county(county) for county in report]
     return _converted
+
+
+def hw4():
+    try:
+        filename = open(str(sys.argv[1]),"r")
+        counties = build_data.get_data()
+        for line in filename:
+            print(line)
+    except FileNotFoundError:
+        print("Error, Couldn't Open")
