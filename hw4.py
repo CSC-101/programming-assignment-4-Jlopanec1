@@ -92,3 +92,4 @@ def percent_field(demographics: list[full_data], field: str) -> float:
     # Print the result in the required format
     print(f"2014 {field} percentage: {percentage:.2f}")
     return percentage
+
