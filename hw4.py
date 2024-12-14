@@ -8,42 +8,49 @@ full_data = build_data.get_data()
 def display(operation):
     try:
         with open("filename") as operation:
-            if not full_data:
-                print("No data available to display.")
-                return
-        for county in full_data:
-            print(f"County: {county.county}")
-            print(f"  - Education (Bachelor's Degree or Higher): {county.education}%")
-            print(f"  - Education (High School or Higher): {county.education}%")
+            for county in full_data:
+                print(f"County: {county.county}")
+                print(f"  - Education (Bachelor's Degree or Higher): {county.education}%")
+                print(f"  - Education (High School or Higher): {county.education}%")
             # Display Ethnicities
-            print("  - Ethnicities:")
+                print("  - Ethnicities:")
             for ethnicity, percentage in county.ethnicities.items():
                 print(f"    - {ethnicity}: {percentage}%")
             # Display Income Information
-            print(f"  - Income (Persons Below Poverty Level): {county.income}%")
-            print("=" * 50)
+                print(f"  - Income (Persons Below Poverty Level): {county.income}%")
+                print("=" * 50)
+    if not full_data:
+        print("No data available to display.")
+        return
 
-def filter_by_state(demographics: list[full_data], state: str) -> list:
+
+        
+
+def filter_by_state(state: str) -> list:
     list_state = []
     for county in full_data:
         if county.state == state:
             list_state.append(county)
-    print(f"Filter: {state}, ({len(list_field)} entries)")
+    print(f"Filter: {state}, ({len(list_state)} entries)")
     return list_state
 
 
 def filter_greater_by_field_number(demographics: list[full_data], field:str, num: int) -> list:
-    list_field = []
-    for county in full_data:
-        if county.field > num:
-            list_field.append(county)
-    print(f"Filter: {field} gt {num} ({len(list_field)} entries)")
-    return list_field
+    def filter_gt(collection, field:dict, number):
+        # Filter the collection based on the condition
+        filtered_collection = [entry for entry in collection if entry[field] > number]
+
+        # Print the result message with the number of remaining entries
+        print(f"Filter: {field} gt {number} ({len(filtered_collection)} entries)")
+
+        # Return the filtered collection
+        return filtered_collection
+
 
 def filter_lesser_by_field_number(demographics: list[full_data], field:str, num: int) -> list:
     list_less = []
     for county in full_data:
-        if county.field < num:
+        if {field} < num:
             list_less.append(county)
     print(f"Filter: {field} ls {num} ({len(list_less)} entries)")
     return list_less
@@ -71,8 +78,8 @@ def percent_field(demographics: list[full_data], field: str) -> float:
     total_population = 0.0
 
     for county in full_data:
-        if field in county.field_values:
-            field_value = county.field_values[field]
+        if field in county:
+            field_value = county.field
             sub_population = county.population * (field_value / 100)
             total_sub_population += sub_population
             total_population += county.population
